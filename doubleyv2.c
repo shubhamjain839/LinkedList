@@ -1,9 +1,11 @@
-/*		copyright	Shubham Jain
+/*			Shubham Jain
 			DCSA MCA E
+			
 				*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<conio.h>
+#include<process.h>
 
 struct dnode
 {
@@ -13,11 +15,11 @@ struct dnode
 void Trav(struct dnode *head,struct dnode *tail)
 {
 	int i=1;
-	if(head==NULL)
+	if(head==NULL) //----------------------------------------------------- empty list
 		printf("\nList is Empty !");
 	else
 	{	
-		while(head!=NULL)
+		while(head!=NULL) //---------------------------------------------- moving in list
 		{
 			printf("\n%dth Element is :%d",i,head->info);
 			i++;
@@ -30,14 +32,14 @@ void InsBeg(struct dnode **head,struct dnode **tail,int info)
 	struct dnode *temp;
 	temp=(struct dnode*)malloc(sizeof(struct dnode));
 	temp->info=info;
-	if((*head)==NULL && (*tail)==NULL)
+	if((*head)==NULL && (*tail)==NULL)	//-------------------------------- list is empty
 	{
 		temp->next=NULL;
 		temp->prev=NULL;
 		*head=temp;
 		*tail=temp;
 	}
-	else
+	else	//------------------------------------------------------------ list is not empty
 	{
 		temp->prev=NULL;
 		temp->next=*head;
@@ -51,7 +53,7 @@ void InsMid(struct dnode **head,struct dnode **tail,int info,int loc)
 	struct dnode *temp,*cp=(*head);
 	temp=(struct dnode*)malloc(sizeof(struct dnode));
 	temp->info=info;
-	for	(i=0;i<loc;i++)
+	for	(i=0;i<loc;i++)	//------------------------------------------------ reaching to the position
 	{
 		if(cp==NULL)
 		{
@@ -66,14 +68,14 @@ void InsMid(struct dnode **head,struct dnode **tail,int info,int loc)
 	}
 	if(flag!=1)
 	{
-		if (cp->next==NULL)
+		if (cp->next==NULL)	//-------------------------------------------- last position
 		{
 			temp->prev=cp;
 			temp->next=NULL;
 			cp->next=temp;
 			(*tail)=temp;
 		}
-		else
+		else 	//-------------------------------------------------------- somewhere at middle
 		{
 			temp->prev=cp;
 			temp->next=cp->next;
@@ -87,14 +89,14 @@ void InsEnd(struct dnode **head,struct dnode **tail,int info)
 	struct dnode *temp;
 	temp=(struct dnode*)malloc(sizeof(struct dnode));
 	temp->info=info;
-	if((*head)==NULL && (*tail)==NULL)
+	if((*head)==NULL && (*tail)==NULL)	//-------------------------------- list is empty
 	{
 		temp->next=NULL;
 		temp->prev=NULL;
 		*head=temp;
 		*tail=temp;
 	}
-	else
+	else	//------------------------------------------------------------ list is not empty
 	{
 		temp->prev=*tail;
 		temp->next=NULL;
@@ -105,19 +107,19 @@ void InsEnd(struct dnode **head,struct dnode **tail,int info)
 void DelBeg(struct dnode **head,struct dnode **tail)
 {
 	int info;
-	if((*head)==NULL && (*tail)==NULL)
+	if((*head)==NULL && (*tail)==NULL)	//--------------------------------- list is empty
 	{
 		printf("List is Empty !");
 	}
-	else
+	else	//------------------------------------------------------------- list isnt empty
 	{
-		if((*head)!=(*tail))
+		if((*head)!=(*tail))	//----------------------------------------- only one node
 		{
 			info=(*head)->info;
 			(*head)=(*head)->next;
 			(*head)->prev=NULL;
 		}
-		else
+		else	//--------------------------------------------------------- normal situation
 		{
 			info=(*head)->info;
 			(*head)=NULL;
@@ -130,17 +132,17 @@ void DelMid(struct dnode **head,struct dnode **tail,int loc)
 {
 	int info,i;
 	struct dnode *cp=(*head);
-	if((*head)==NULL && (*tail)==NULL)
+	if((*head)==NULL && (*tail)==NULL)	//---------------------------------- list is empty
 	{
 		printf("List is Empty !");
 	}
-	else
+	else	//-------------------------------------------------------------- list is not empty
 	{
-		if((*head)!=(*tail))
+		if((*head)!=(*tail))	//------------------------------------------ reaching to position
 		{
 			for (i=0;i<loc;i++)
 			{
-				if(cp==NULL)
+				if(cp==NULL) //--------------------------------------------- list finished
 				{
 					printf("\nEnd of List reached !");
 					break;
@@ -152,7 +154,7 @@ void DelMid(struct dnode **head,struct dnode **tail,int loc)
 				cp->next->prev=cp->prev;
 				printf("\nElement Deleted :%d",info);
 		}
-		else
+		else //-------------------------------------------------------------- only element in the list
 		{
 			info=(*head)->info;
 			(*head)=NULL;
@@ -164,19 +166,19 @@ void DelMid(struct dnode **head,struct dnode **tail,int loc)
 void DelEnd(struct dnode **head,struct dnode **tail)
 {
 	int info;
-	if((*head)==NULL && (*tail)==NULL)
+	if((*head)==NULL && (*tail)==NULL)//-------------------------------------- empty list
 	{
 		printf("List is Empty !");
 	}
-	else
+	else	//list is not empty
 	{
-		if((*head)!=(*tail))
+		if((*head)!=(*tail))	//-------------------------------------------- more then one element
 		{
 			info=(*tail)->info;
 			(*tail)=(*tail)->prev;
 			(*tail)->next=NULL;
 		}
-		else
+		else 	//------------------------------------------------------------ only one element
 		{
 			info=(*head)->info;
 			(*head)=NULL;
