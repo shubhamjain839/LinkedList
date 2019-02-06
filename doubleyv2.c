@@ -53,7 +53,7 @@ void InsMid(struct dnode **head,struct dnode **tail,int info,int loc)
 	struct dnode *temp,*cp=(*head);
 	temp=(struct dnode*)malloc(sizeof(struct dnode));
 	temp->info=info;
-	for	(i=0;i<loc;i++)	//------------------------------------------------ reaching to the position
+	for	(i=0;i<loc-1;i++)	//------------------------------------------------ reaching to the position
 	{
 		if(cp==NULL)
 		{
@@ -61,18 +61,15 @@ void InsMid(struct dnode **head,struct dnode **tail,int info,int loc)
 			flag=1;
 			break;
 		}
-		else
-		{
 			cp=cp->next;
-		}
 	}
 	if(flag!=1)
 	{
-		if (cp->next==NULL)	//-------------------------------------------- last position
+		if (cp==(*tail))	//-------------------------------------------- last position
 		{
-			temp->prev=cp;
+			temp->prev=(*tail);
 			temp->next=NULL;
-			cp->next=temp;
+			(*tail)->next=temp;
 			(*tail)=temp;
 		}
 		else 	//-------------------------------------------------------- somewhere at middle
@@ -90,7 +87,7 @@ void InsEnd(struct dnode **head,struct dnode **tail,int info)
 	temp=(struct dnode*)malloc(sizeof(struct dnode));
 	temp->info=info;
 	if((*head)==NULL && (*tail)==NULL)	//-------------------------------- list is empty
-	{
+	{  
 		temp->next=NULL;
 		temp->prev=NULL;
 		*head=temp;
@@ -100,8 +97,8 @@ void InsEnd(struct dnode **head,struct dnode **tail,int info)
 	{
 		temp->prev=*tail;
 		temp->next=NULL;
-		(*tail)->prev=temp;
-		*tail=temp;
+		(*tail)->next=temp;
+		*tail=temp; 
 	}
 }
 void DelBeg(struct dnode **head,struct dnode **tail)
@@ -140,7 +137,7 @@ void DelMid(struct dnode **head,struct dnode **tail,int loc)
 	{
 		if((*head)!=(*tail))	//------------------------------------------ reaching to position
 		{
-			for (i=0;i<loc;i++)
+			for (i=0;i<loc-1;i++)
 			{
 				if(cp==NULL) //--------------------------------------------- list finished
 				{
